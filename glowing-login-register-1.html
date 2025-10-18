@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glowing Login & Register</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; font-family:'Poppins',sans-serif; }
+
+    body {
+      background: radial-gradient(circle at top, #00141a 0%, #000 100%);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+    }
+
+    .container {
+      width: 360px;
+      padding: 36px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 20px #00fff0;
+      backdrop-filter: blur(12px);
+      animation: glowPulse 2s infinite alternate;
+      position: relative;
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 12px #00fff0; }
+      100% { box-shadow: 0 0 28px #00fff0; }
+    }
+
+    h2 { text-align:center; color:#00fff0; margin-bottom:18px; }
+
+    .form {
+      opacity:0;
+      transition: opacity 0.5s ease;
+      display:none;
+    }
+
+    .form.active {
+      display:block;
+      opacity:1;
+    }
+
+    .field-row {
+      position:relative;
+      margin:18px 0;
+    }
+
+    .input-box {
+      width:100%;
+      position:relative;
+    }
+
+    .input-box input {
+      width:100%;
+      padding:10px 35px;
+      background:transparent;
+      border:none;
+      border-bottom:2px solid #00fff0;
+      outline:none;
+      color:#fff;
+      font-size:15px;
+    }
+
+    .input-box label {
+      position:absolute;
+      left:35px;
+      top:50%;
+      transform:translateY(-50%);
+      pointer-events:none;
+      color:#aaa;
+      transition:0.18s;
+    }
+
+    .input-box input:focus + label,
+    .input-box input:not(:placeholder-shown) + label {
+      top:-10px;
+      font-size:12px;
+      color:#00fff0;
+    }
+
+    .icon {
+      position:absolute;
+      left:5px;
+      top:10px;
+      color:#00fff0;
+    }
+
+    .eye-toggle {
+      position:absolute;
+      right:5px;
+      top:10px;
+      color:#00fff0;
+      cursor:pointer;
+      font-size:20px;
+      transition:0.3s;
+    }
+
+    .eye-toggle:hover {
+      color:#fff;
+      text-shadow:0 0 6px #00fff0;
+    }
+
+    .remember-forgot {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:8px;
+      font-size:13px;
+      gap:10px;
+    }
+
+    .remember-forgot a {
+      color:#00fff0;
+      text-decoration:none;
+    }
+
+    .btn {
+      display:block;
+      width:100%;
+      padding:10px;
+      margin-top:18px;
+      background:#00fff0;
+      color:#000;
+      border:none;
+      border-radius:6px;
+      font-weight:600;
+      cursor:pointer;
+      transition: box-shadow 0.3s;
+    }
+
+    .btn:hover { box-shadow:0 0 14px #00fff0; }
+
+    .toggle-link {
+      text-align:center;
+      margin-top:14px;
+      font-size:13px;
+    }
+
+    .toggle-link a {
+      color:#00fff0;
+      text-decoration:none;
+      cursor:pointer;
+    }
+
+    @media (max-width:420px) {
+      .container { width: 92vw; padding:28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form login active">
+      <h2>Welcome Back!</h2>
+      <div class="field-row">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+          <input id="loginEmail" type="email" placeholder=" " required />
+          <label for="loginEmail">Email</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input id="loginPwd" type="password" placeholder=" " required />
+          <label for="loginPwd">Password</label>
+          <span class="eye-toggle" onclick="togglePassword('loginPwd', this)">
+            <ion-icon name="eye-off-outline"></ion-icon>
+          </span>
+        </div>
+      </div>
+      <div class="remember-forgot">
+        <label style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" /> Remember Me
+        </label>
+        <a href="#">Forgot Password?</a>
+      </div>
+      <button class="btn" type="button">Login</button>
+      <div class="toggle-link">
+        <p>Don’t have an account? <a onclick="switchForm('register')">Register</a></p>
+      </div>
+    </div>
+    <div class="form register">
+      <h2>Register Account</h2>
+      <div class="field-row">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+          <input id="regUser" type="text" placeholder=" " required />
+          <label for="regUser">Username</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+          <input id="regEmail" type="email" placeholder=" " required />
+          <label for="regEmail">Email</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+          <input id="regPwd" type="password" placeholder=" " required />
+          <label for="regPwd">Password</label>
+          <span class="eye-toggle" onclick="togglePassword('regPwd', this)">
+            <ion-icon name="eye-off-outline"></ion-icon>
+          </span>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="input-box">
+          <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+          <input id="confirmPwd" type="password" placeholder=" " required />
+          <label for="confirmPwd">Confirm Password</label>
+          <span class="eye-toggle" onclick="togglePassword('confirmPwd', this)">
+            <ion-icon name="eye-off-outline"></ion-icon>
+          </span>
+        </div>
+      </div>
+      <button class="btn" type="button">Register</button>
+      <div class="toggle-link">
+        <p>Already have an account? <a onclick="switchForm('login')">Login</a></p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function switchForm(to) {
+      const loginForm = document.querySelector('.login');
+      const registerForm = document.querySelector('.register');
+
+      if (to === 'register') {
+        loginForm.classList.remove('active');
+        setTimeout(() => registerForm.classList.add('active'), 100);
+      } else {
+        registerForm.classList.remove('active');
+        setTimeout(() => loginForm.classList.add('active'), 100);
+      }
+    }
+
+    function togglePassword(inputId, iconSpan) {
+      const input = document.getElementById(inputId);
+      const icon = iconSpan.querySelector('ion-icon');
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      icon.setAttribute('name', show ? 'eye-outline' : 'eye-off-outline');
+    }
+  </script>
+</body>
+</html>
